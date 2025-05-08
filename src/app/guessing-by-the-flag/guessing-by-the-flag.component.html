@@ -1,12 +1,20 @@
-<div>
+<div *ngIf="graSkonczona">
+  <h2>😢 Koniec gry</h2>
+  <p>Przekroczyłeś limit 3 błędów.</p>
+  <p>Twój wynik: {{ punkty }} punktów</p>
+  <button (click)="resetujGre()">🔁 Zagraj ponownie</button>
+</div>
+
+<div *ngIf="!graSkonczona">
   <h1>🧠 Tryb Trudny: Zgadnij kraj po fladze</h1>
 
   <button (click)="nowaRunda()">🎲 Losuj nową flagę</button>
 
-  <div *ngIf="obecnyKraj && opcje.length" ngClass="rem2">
-    <img [src]="obecnyKraj.flags.png"/>
+  <div *ngIf="obecnyKraj && opcje.length" class="rem2">
+    <p>Czas: {{ czas }} s</p>
+    <img [src]="obecnyKraj.flags.png" />
 
-    <div ngClass="rem1">
+    <div class="rem1">
       <button
         *ngFor="let opcja of opcje"
         (click)="sprawdz(opcja)"
@@ -16,7 +24,7 @@
       </button>
     </div>
 
-    <div *ngIf="czySprawdzono" ngClass="rem1">
+    <div *ngIf="czySprawdzono" class="rem1">
       <p [style.color]="czyPoprawna ? 'green' : 'red'">
         {{ czyPoprawna ? '✅ Dobrze!' : '❌ Źle!' }}<br />
         Prawidłowa odpowiedź: <strong>{{ obecnyKraj.name.common }}</strong>
@@ -24,7 +32,6 @@
       <button (click)="nowaRunda()">➡️ Następna runda</button>
     </div>
 
-    <p ngClass="rem2">Punkty: {{ punkty }}</p>
+    <p class="rem2">Punkty: {{ punkty }} | Błędy: {{ bledy }}/3</p>
   </div>
 </div>
-
