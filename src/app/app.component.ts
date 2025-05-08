@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { GuessingByTheFlagComponent } from './guessing-by-the-flag/guessing-by-the-flag.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [GuessingByTheFlagComponent],
-  template: `<app-guessing-by-the-flag></app-guessing-by-the-flag>`,
+  imports: [RouterOutlet],
+  template: `<router-outlet></router-outlet>`,
 })
 export class AppComponent {}
+
