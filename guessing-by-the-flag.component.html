@@ -1,0 +1,30 @@
+<div>
+  <h1>🧠 Tryb Trudny: Zgadnij kraj po fladze</h1>
+
+  <button (click)="nowaRunda()">🎲 Losuj nową flagę</button>
+
+  <div *ngIf="obecnyKraj && opcje.length" ngClass="rem2">
+    <img [src]="obecnyKraj.flags.png"/>
+
+    <div ngClass="rem1">
+      <button
+        *ngFor="let opcja of opcje"
+        (click)="sprawdz(opcja)"
+        [disabled]="czySprawdzono"
+      >
+        {{ opcja }}
+      </button>
+    </div>
+
+    <div *ngIf="czySprawdzono" ngClass="rem1">
+      <p [style.color]="czyPoprawna ? 'green' : 'red'">
+        {{ czyPoprawna ? '✅ Dobrze!' : '❌ Źle!' }}<br />
+        Prawidłowa odpowiedź: <strong>{{ obecnyKraj.name.common }}</strong>
+      </p>
+      <button (click)="nowaRunda()">➡️ Następna runda</button>
+    </div>
+
+    <p ngClass="rem2">Punkty: {{ punkty }}</p>
+  </div>
+</div>
+

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "CzystyAngular": {
+    "Gra": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/czysty-angular",
+            "outputPath": "dist/gra",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "CzystyAngular:build:production"
+              "buildTarget": "Gra:build:production"
             },
             "development": {
-              "buildTarget": "CzystyAngular:build:development"
+              "buildTarget": "Gra:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -103,5 +103,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "afc8f72a-ab8d-4a25-b3bb-f7a6050b8e0f"
   }
 }
