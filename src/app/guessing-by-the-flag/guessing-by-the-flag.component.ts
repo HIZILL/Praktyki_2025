@@ -1,11 +1,13 @@
 import { Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { GameSettingsService } from '../game-settings.service';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-guessing-by-the-flag',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, RouterModule],
   templateUrl: './guessing-by-the-flag.component.html',
   styleUrls: ['./guessing-by-the-flag.component.scss']
 })
@@ -17,11 +19,12 @@ export class GuessingByTheFlagComponent implements OnDestroy {
   czyPoprawna = false;
   punkty = 0;
   bledy = 0;
-  czas = 10;
+  czas: number;
   timer: any = null;
   graSkonczona = false;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public settings: GameSettingsService, private router: Router) {
+    this.czas = this.settings.czasNaOdpowiedz;
     this.http.get<any[]>('https://restcountries.com/v3.1/all?fields=name,flags')
       .subscribe((data) => {
         this.kraje = data;
@@ -30,7 +33,7 @@ export class GuessingByTheFlagComponent implements OnDestroy {
   }
 
   nowaRunda() {
-    if (this.bledy >= 3) {
+    if (this.bledy >= this.settings.maksBledy) {
       this.graSkonczona = true;
       this.stopTimer();
       return;
@@ -38,7 +41,7 @@ export class GuessingByTheFlagComponent implements OnDestroy {
 
     this.czySprawdzono = false;
     this.czyPoprawna = false;
-    this.czas = 10;
+    this.czas = this.settings.czasNaOdpowiedz;
     this.startTimer();
 
     const losoweKraje = this.shuffle([...this.kraje]).slice(0, 3);
@@ -57,7 +60,8 @@ export class GuessingByTheFlagComponent implements OnDestroy {
       this.bledy++;
     }
 
-    if (this.bledy >= 3) {
+    // ✅ poprawka — używamy ustawienia z serwisu
+    if (this.bledy >= this.settings.maksBledy) {
       this.graSkonczona = true;
     }
   }
@@ -92,5 +96,9 @@ export class GuessingByTheFlagComponent implements OnDestroy {
     this.bledy = 0;
     this.graSkonczona = false;
     this.nowaRunda();
+  }
+
+    przejdzDoMenu() {
+    this.router.navigate(['/']);
   }
 }
