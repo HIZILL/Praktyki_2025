@@ -13,15 +13,18 @@ import { RouterModule, Router } from '@angular/router';
 export class SettingsComponent {
   czasNaOdpowiedz!: number;
   maksBledy!: number;
+  region!: string;
 
   constructor(private settings: GameSettingsService, private router: Router) {
     this.czasNaOdpowiedz = this.settings.czasNaOdpowiedz;
     this.maksBledy = this.settings.maksBledy;
+    this.region = this.settings.region;
   }
 
   zapisz() {
     this.settings.setCzas(this.czasNaOdpowiedz);
     this.settings.setMaksBledy(this.maksBledy);
+    this.settings.setRegion(this.region);
     alert('Ustawienia zapisane ✅');
   }
 

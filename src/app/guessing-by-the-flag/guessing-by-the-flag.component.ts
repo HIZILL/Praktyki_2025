@@ -23,13 +23,23 @@ export class GuessingByTheFlagComponent implements OnDestroy {
   timer: any = null;
   graSkonczona = false;
 
-  constructor(private http: HttpClient, public settings: GameSettingsService, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    public settings: GameSettingsService,
+    private router: Router
+  ) {
     this.czas = this.settings.czasNaOdpowiedz;
-    this.http.get<any[]>('https://restcountries.com/v3.1/all?fields=name,flags')
-      .subscribe((data) => {
-        this.kraje = data;
-        this.nowaRunda();
-      });
+
+    const region = this.settings.region;
+    const url =
+      region === 'all'
+        ? 'https://restcountries.com/v3.1/all?fields=name,flags'
+        : `https://restcountries.com/v3.1/region/${region}?fields=name,flags`;
+
+    this.http.get<any[]>(url).subscribe((data) => {
+      this.kraje = data;
+      this.nowaRunda();
+    });
   }
 
   nowaRunda() {
@@ -44,8 +54,9 @@ export class GuessingByTheFlagComponent implements OnDestroy {
     this.czas = this.settings.czasNaOdpowiedz;
     this.startTimer();
 
-    const losoweKraje = this.shuffle([...this.kraje]).slice(0, 3);
-    this.obecnyKraj = losoweKraje[Math.floor(Math.random() * 3)];
+    const iloscOpcji = 3;
+    const losoweKraje = this.shuffle([...this.kraje]).slice(0, iloscOpcji);
+    this.obecnyKraj = losoweKraje[Math.floor(Math.random() * losoweKraje.length)];
     this.opcje = losoweKraje.map(kraj => kraj.name.common);
   }
 
@@ -60,7 +71,6 @@ export class GuessingByTheFlagComponent implements OnDestroy {
       this.bledy++;
     }
 
-    // ✅ poprawka — używamy ustawienia z serwisu
     if (this.bledy >= this.settings.maksBledy) {
       this.graSkonczona = true;
     }
@@ -98,7 +108,7 @@ export class GuessingByTheFlagComponent implements OnDestroy {
     this.nowaRunda();
   }
 
-    przejdzDoMenu() {
+  przejdzDoMenu() {
     this.router.navigate(['/']);
   }
 }

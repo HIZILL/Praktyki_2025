@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class GameSettingsService {
   private _czasNaOdpowiedz: number = 10;
   private _maksBledy: number = 3;
+  region = 'all';
 
   get czasNaOdpowiedz(): number {
     return this._czasNaOdpowiedz;
@@ -21,5 +22,9 @@ export class GameSettingsService {
 
   setMaksBledy(bledy: number): void {
     this._maksBledy = bledy;
+  }
+
+  setRegion(region: string) {
+    this.region = region;
   }
 }

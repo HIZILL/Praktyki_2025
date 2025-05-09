@@ -13,6 +13,21 @@
     <input type="number" [(ngModel)]="maksBledy" min="1" max="10" />
   </label>
 
+  <br />
+
+  <label>
+    🌍 Wybierz region:
+    <select [(ngModel)]="region">
+      <option value="all">🌐 Wszystkie kraje</option>
+      <option value="Europe">🇪🇺 Europa</option>
+      <option value="Asia">🌏 Azja</option>
+      <option value="Africa">🌍 Afryka</option>
+      <option value="Oceania">🌊 Australia i Oceania</option>
+      <option value="North America">🌎 Ameryka Północna</option>
+      <option value="South America">🌎 Ameryka Południowa</option>
+    </select>
+  </label>
+
   <br /><br />
   <button (click)="zapisz()">💾 Zapisz</button>
   <button (click)="przejdzDoMenu()">🏠 Wróć do menu</button>
