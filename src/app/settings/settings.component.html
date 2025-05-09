@@ -3,15 +3,21 @@
 
   <label>
     ⏱️ Czas na odpowiedź (sekundy):
-    <input type="number" [(ngModel)]="czasNaOdpowiedz" min="5" max="60" />
+    <input type="number" [(ngModel)]="czasNaOdpowiedz" min="1" />
   </label>
+  <p *NgIf="czasNaOdpowiedz <= 0" style="color: red;">
+    Czas musi być większy niż 0 sekund.
+  </p>
 
   <br />
 
   <label>
     ❌ Maksymalna liczba błędów:
-    <input type="number" [(ngModel)]="maksBledy" min="1" max="10" />
+    <input type="number" [(ngModel)]="maksBledy" min="0" />
   </label>
+  <p *NgIf="maksBledy < 1" style="color: red;">
+    Liczba błędów nie może być mniejsza bądź równa 0.
+  </p>
 
   <br />
 
@@ -29,7 +35,10 @@
   </label>
 
   <br /><br />
-  <button (click)="zapisz()">💾 Zapisz</button>
+  <button
+    (click)="zapisz()"
+    [disabled]="czasNaOdpowiedz <= 0 || maksBledy < 1">
+    💾 Zapisz
+  </button>
   <button (click)="przejdzDoMenu()">🏠 Wróć do menu</button>
 </div>
-

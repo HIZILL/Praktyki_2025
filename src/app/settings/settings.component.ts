@@ -22,6 +22,12 @@ export class SettingsComponent {
   }
 
   zapisz() {
+
+  if (this.czasNaOdpowiedz <= 0 || this.maksBledy < 1) {
+    alert('⛔ Nieprawidłowe wartości w ustawieniach!');
+    return;
+  }
+
     this.settings.setCzas(this.czasNaOdpowiedz);
     this.settings.setMaksBledy(this.maksBledy);
     this.settings.setRegion(this.region);
