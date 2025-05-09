@@ -1,0 +1,22 @@
+<h1>🏙️ Zgadnij kraj po stolicy</h1>
+
+<div *ngIf="obecnyKraj && opcje.length">
+  <p><strong>Stolica:</strong> {{ obecnyKraj.capital[0] }}</p>
+
+  <div>
+    <button *ngFor="let opcja of opcje" (click)="sprawdz(opcja)" [disabled]="czySprawdzono">
+      {{ opcja }}
+    </button>
+  </div>
+
+  <div *ngIf="czySprawdzono">
+    <p [style.color]="czyPoprawna ? 'green' : 'red'">
+      {{ czyPoprawna ? '✅ Dobrze!' : '❌ Źle!' }}<br />
+      Prawidłowa odpowiedź: <strong>{{ obecnyKraj.name.common }}</strong>
+    </p>
+    <button (click)="nowaRunda()">➡️ Następna runda</button>
+  </div>
+
+  <button (click)="przejdzDoMenu()">🏠 Wróć do menu</button>
+  <p>🎯 Punkty: {{ punkty }}</p>
+</div>
