@@ -37,7 +37,6 @@ export class GuessingByCapitalComponent implements OnDestroy {
         : `https://restcountries.com/v3.1/region/${region}?fields=name,capital`;
 
     this.http.get<any[]>(url).subscribe((data) => {
-      // filtrujemy tylko te kraje, które mają stolicę
       this.kraje = data.filter(kraj => kraj.capital && kraj.capital.length > 0);
       this.nowaRunda();
     });

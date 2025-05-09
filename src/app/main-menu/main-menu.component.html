@@ -1,6 +1,17 @@
+<div class="auth-panel">
+  <ng-container *ngIf="!isLoggedIn">
+    <button (click)="zaloguj()">🔐 Zaloguj</button>
+    <button (click)="zarejestruj()">📝 Zarejestruj</button>
+  </ng-container>
+  <ng-container *ngIf="isLoggedIn">
+    <span>👤 Witaj, {{ username }}</span>
+    <button (click)="wyloguj()">🚪 Wyloguj</button>
+  </ng-container>
+</div>
+
 <div class="menu">
-    <h1>🎮 Menu Główne</h1>
-    <button routerLink='/graFlaga'>🧠 Zagraj: Zgadnij flagę państwa</button>
-    <button routerLink='/graStolica'>🧠 Zagraj: Zgadnij stolicę państwa</button>
-    <button routerLink='/ustawienia'>⚙️ Ustawienia</button>
+  <h1>🎮 Menu Główne</h1>
+  <button routerLink='/graFlaga'>🧠 Zagraj: Zgadnij flagę państwa</button>
+  <button routerLink='/graStolica'>🧠 Zagraj: Zgadnij stolicę państwa</button>
+  <button routerLink='/ustawienia'>⚙️ Ustawienia</button>
 </div>

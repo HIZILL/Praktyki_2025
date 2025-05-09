@@ -1,11 +1,30 @@
-.menu {
-    text-align: center;
-    padding: 2rem;
+.auth-panel {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  text-align: right;
 
-    button {
-      display: block;
-      margin: 1rem auto;
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-    }
+  button {
+    margin-left: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  span {
+    margin-right: 0.5rem;
+    font-weight: bold;
+  }
 }
+
+.menu {
+  text-align: center;
+  padding: 2rem;
+
+  button {
+    display: block;
+    margin: 1rem auto;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+  }
+}
+

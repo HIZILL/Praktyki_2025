@@ -1,0 +1,7 @@
+<h2>📝 Rejestracja</h2>
+<form (ngSubmit)="register()">
+  <label>Login: <input [(ngModel)]="username" name="username" required></label><br>
+  <label>Hasło: <input [(ngModel)]="password" name="password" type="password" required></label><br>
+  <button type="submit">Zarejestruj</button>
+  <p *ngIf="message">{{ message }}</p>
+</form>
