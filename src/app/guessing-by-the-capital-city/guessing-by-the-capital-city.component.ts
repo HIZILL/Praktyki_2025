@@ -37,7 +37,7 @@ export class GuessingByCapitalComponent implements OnDestroy {
         : `https://restcountries.com/v3.1/region/${region}?fields=name,capital`;
 
     this.http.get<any[]>(url).subscribe((data) => {
-      // Filtrowanie krajów bez stolicy
+      // filtrujemy tylko te kraje, które mają stolicę
       this.kraje = data.filter(kraj => kraj.capital && kraj.capital.length > 0);
       this.nowaRunda();
     });
@@ -57,14 +57,14 @@ export class GuessingByCapitalComponent implements OnDestroy {
 
     const iloscOpcji = 3;
     const losoweKraje = this.shuffle([...this.kraje]).slice(0, iloscOpcji);
-    this.obecnyKraj = losoweKraje[Math.floor(Math.random() * iloscOpcji)];
-    this.opcje = losoweKraje.map(kraj => kraj.name.common);
+    this.obecnyKraj = losoweKraje[Math.floor(Math.random() * losoweKraje.length)];
+    this.opcje = losoweKraje.map(kraj => kraj.capital[0]);
   }
 
   sprawdz(wybor: string) {
     this.stopTimer();
     this.czySprawdzono = true;
-    this.czyPoprawna = wybor === this.obecnyKraj.name.common;
+    this.czyPoprawna = wybor === this.obecnyKraj.capital[0];
 
     if (this.czyPoprawna) {
       this.punkty++;

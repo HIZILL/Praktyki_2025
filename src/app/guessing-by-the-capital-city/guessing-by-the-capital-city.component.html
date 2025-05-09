@@ -1,22 +1,35 @@
-<h1>🏙️ Zgadnij kraj po stolicy</h1>
-
-<div *ngIf="obecnyKraj && opcje.length">
-  <p><strong>Stolica:</strong> {{ obecnyKraj.capital[0] }}</p>
-
-  <div>
-    <button *ngFor="let opcja of opcje" (click)="sprawdz(opcja)" [disabled]="czySprawdzono">
-      {{ opcja }}
-    </button>
-  </div>
-
-  <div *ngIf="czySprawdzono">
-    <p [style.color]="czyPoprawna ? 'green' : 'red'">
-      {{ czyPoprawna ? '✅ Dobrze!' : '❌ Źle!' }}<br />
-      Prawidłowa odpowiedź: <strong>{{ obecnyKraj.name.common }}</strong>
-    </p>
-    <button (click)="nowaRunda()">➡️ Następna runda</button>
-  </div>
-
+<div *ngIf="graSkonczona">
+  <h2>😢 Koniec gry</h2>
+  <p>Przekroczyłeś limit {{ settings.maksBledy }} błędów.</p>
+  <p>Twój wynik: {{ punkty }} punktów</p>
+  <button (click)="resetujGre()">🔁 Zagraj ponownie</button>
   <button (click)="przejdzDoMenu()">🏠 Wróć do menu</button>
-  <p>🎯 Punkty: {{ punkty }}</p>
+</div>
+
+<div *ngIf="!graSkonczona">
+  <h1>Zgadnij stolicę</h1>
+  <div *ngIf="obecnyKraj && opcje.length" class="rem2">
+    <p>Czas: {{ czas }} s</p>
+    <p>Jaki kraj ma stolicę: <strong>{{ obecnyKraj.name.common }}</strong>?</p>
+
+    <div class="rem1">
+      <button
+        *ngFor="let opcja of opcje"
+        (click)="sprawdz(opcja)"
+        [disabled]="czySprawdzono">
+        {{ opcja }}
+      </button>
+    </div>
+
+    <div *ngIf="czySprawdzono" class="rem1">
+      <p [style.color]="czyPoprawna ? 'green' : 'red'">
+        {{ czyPoprawna ? '✅ Dobrze!' : '❌ Źle!' }}<br />
+        Prawidłowa odpowiedź: <strong>{{ obecnyKraj.capital[0] }}</strong>
+      </p>
+      <button (click)="nowaRunda()">➡️ Następna runda</button>
+    </div>
+
+    <button (click)="przejdzDoMenu()">🏠 Wróć do menu</button>
+    <p class="rem2">Punkty: {{ punkty }} | Błędy: {{ bledy }}/{{ settings.maksBledy }}</p>
+  </div>
 </div>
