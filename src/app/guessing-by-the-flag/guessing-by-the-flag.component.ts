@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { GameSettingsService } from '../game-settings.service';
 import { RouterModule, Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-guessing-by-the-flag',
@@ -26,7 +27,8 @@ export class GuessingByTheFlagComponent implements OnDestroy {
   constructor(
     private http: HttpClient,
     public settings: GameSettingsService,
-    private router: Router
+    private router: Router,
+    private auth: AuthService,
   ) {
     this.czas = this.settings.czasNaOdpowiedz;
 
@@ -46,6 +48,7 @@ export class GuessingByTheFlagComponent implements OnDestroy {
     if (this.bledy >= this.settings.maksBledy) {
       this.graSkonczona = true;
       this.stopTimer();
+      this.saveScore(this.punkty);
       return;
     }
 
@@ -73,6 +76,7 @@ export class GuessingByTheFlagComponent implements OnDestroy {
 
     if (this.bledy >= this.settings.maksBledy) {
       this.graSkonczona = true;
+      this.saveScore(this.punkty);
     }
   }
 
@@ -111,4 +115,28 @@ export class GuessingByTheFlagComponent implements OnDestroy {
   przejdzDoMenu() {
     this.router.navigate(['/']);
   }
+
+  saveScore(score: number) {
+    const username = this.auth.getUsername();
+    if (!username) return;
+
+    const scoresJson = localStorage.getItem('userScores');
+    const allScores = scoresJson ? JSON.parse(scoresJson) : {};
+
+    if (!allScores[username]) {
+      allScores[username] = [];
+    }
+
+    allScores[username].push({
+      mode: 'flag',
+      score: score,
+      timestamp: new Date().toISOString(),
+      lives: this.settings.maksBledy,
+      region: this.settings.region, //! dodany
+      timeLimit: this.settings.czasNaOdpowiedz
+    });
+
+    localStorage.setItem('userScores', JSON.stringify(allScores));
+  }
+
 }

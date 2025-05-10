@@ -5,6 +5,7 @@ import { GuessingByCapitalComponent } from './guessing-by-the-capital-city/guess
 import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 export const routes: Routes = [
   { path: '', component: MainMenuComponent },
@@ -13,4 +14,5 @@ export const routes: Routes = [
   { path: 'ustawienia', component: SettingsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'statistics', component: StatisticsComponent }
 ];

@@ -1,0 +1,24 @@
+<div class="stats">
+  <h2>📊 Statystyki gracza: {{ username }}</h2>
+
+  <div *ngIf="scores.length; else brakWynikow">
+    <p>Najlepsze wyniki:</p>
+    <ul>
+      <li *ngFor="let score of scores">
+        🎮 Tryb: {{ score.mode }} –
+        {{ score.score }} pkt –
+        ❤️ Życia: {{ score.lives }} –
+        ⏱️ Limit: {{ score.timeLimit }}s –
+        🌎 Region: {{ score.region }} -
+        🕒 {{ score.timestamp | date:'yyyy-MM-dd, HH:mm' }}
+      </li>
+    </ul>
+    <button (click)="clearScores()">🗑️ Wyczyść wyniki</button>
+  </div>
+
+  <ng-template #brakWynikow>
+    <p>Brak zapisanych wyników.</p>
+  </ng-template>
+
+  <button (click)="goToMenu()">🏠 Wróć do menu</button>
+</div>
