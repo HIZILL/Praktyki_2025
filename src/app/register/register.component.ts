@@ -1,28 +1,35 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
   username = '';
   password = '';
+  error = '';
   message = '';
 
   constructor(private auth: AuthService, private router: Router) {}
 
   register() {
     const success = this.auth.register(this.username, this.password);
-    this.message = success ? '✅ Rejestracja udana!' : '❌ Wypełnij wszystkie pola.';
     if (success) {
-      this.router.navigate(['/login']);
+      this.message = '✅ Rejestracja zakończona sukcesem! Zostaniesz zalogowany.';
+      setTimeout(() => this.router.navigate(['/']), 1500);
+    } else {
+      this.message = '❌ Użytkownik o tej nazwie już istnieje.';
     }
+  }
+
+  przejdzDoMenu() {
+    this.router.navigate(['/']);
   }
 }
