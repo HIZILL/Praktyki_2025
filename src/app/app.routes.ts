@@ -6,11 +6,13 @@ import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { MapComponent } from './map/map.component';
 
 export const routes: Routes = [
   { path: '', component: MainMenuComponent },
   { path: 'graFlaga', component: GuessingByTheFlagComponent },
   { path: 'graStolica', component: GuessingByCapitalComponent },
+  {path: 'graMapa', component: MapComponent},
   { path: 'ustawienia', component: SettingsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
