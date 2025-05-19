@@ -21,23 +21,19 @@ export class MapComponent implements OnInit, AfterViewInit {
     if (isPlatformBrowser(this.platformId)) {
       const L = await import('leaflet');
 
-      // Tworzymy mapę raz
       if (!this.map) {
-        this.map = L.map('map').setView([20, 0], 2); // Ustawiamy widok początkowy
+        this.map = L.map('map').setView([20, 0], 2);
       }
 
-      // Dodajemy tylko jedną warstwę mapy
       if (this.map.hasLayer('tileLayer') === false) {
         const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '&copy; OpenStreetMap contributors',
-          id: 'tileLayer'  // Przypisujemy id, żeby łatwiej było sprawdzić, czy warstwa już istnieje
+          id: 'tileLayer'
         }).addTo(this.map);
       }
 
-      // Wczytanie danych geoJSON raz
       this.http.get('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
         .subscribe((geoJsonData: any) => {
-          // Dodajemy tylko raz dane geoJSON
           L.geoJSON(geoJsonData).addTo(this.map);
         });
     }
@@ -46,7 +42,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {
-        this.map.invalidateSize(); // Zwiększamy rozmiar mapy po załadowaniu
+        this.map.invalidateSize();
       }, 200);
     }
   }
