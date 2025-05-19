@@ -1,49 +1,34 @@
-import { Component, OnInit, AfterViewInit, inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { PLATFORM_ID } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Map, MapStyle, config } from '@maptiler/sdk';
+import '@maptiler/sdk/dist/maptiler-sdk.css';
 
 @Component({
   selector: 'app-map',
-  standalone: true,
-  imports: [],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit, AfterViewInit {
+export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
+  map: Map | undefined;
 
-  private http = inject(HttpClient);
-  private platformId = inject(PLATFORM_ID);
+  @ViewChild('map')
+  private mapContainer!: ElementRef<HTMLElement>;
 
-  private map: any;
-
-  async ngOnInit(): Promise<void> {
-    if (isPlatformBrowser(this.platformId)) {
-      const L = await import('leaflet');
-
-      if (!this.map) {
-        this.map = L.map('map').setView([20, 0], 2);
-      }
-
-      if (this.map.hasLayer('tileLayer') === false) {
-        const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; OpenStreetMap contributors',
-          id: 'tileLayer'
-        }).addTo(this.map);
-      }
-
-      this.http.get('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
-        .subscribe((geoJsonData: any) => {
-          L.geoJSON(geoJsonData).addTo(this.map);
-        });
-    }
+  ngOnInit(): void {
+    config.apiKey = 'Id95jxtToAOuyq24h6di';
   }
 
   ngAfterViewInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      setTimeout(() => {
-        this.map.invalidateSize();
-      }, 200);
-    }
+    const initialState = { lng: 139.753, lat: 35.6844, zoom: 14 };
+
+    this.map = new Map({
+      container: this.mapContainer.nativeElement,
+      style: MapStyle.STREETS,
+      center: [initialState.lng, initialState.lat],
+      zoom: initialState.zoom
+    });
+  }
+
+  ngOnDestroy() {
+    this.map?.remove();
   }
 }

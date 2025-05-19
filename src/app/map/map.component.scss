@@ -1,26 +1,25 @@
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+.map-wrap {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 77px);
 }
 
-
-:host {
-  display: block;
+.map {
+  position: absolute;
+  width: 100%;
   height: 100%;
 }
 
-#map {
-  height: 500px;
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.map-container {
-  width: 100%;
-  height: 500px;
-  position: relative;
-  z-index: 0;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
-
