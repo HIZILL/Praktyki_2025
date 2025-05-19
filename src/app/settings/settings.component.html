@@ -5,7 +5,7 @@
     ⏱️ Czas na odpowiedź (sekundy):
     <input type="number" [(ngModel)]="czasNaOdpowiedz" min="1" />
   </label>
-  <p *NgIf="czasNaOdpowiedz <= 0" style="color: red;">
+  <p *ngIf="czasNaOdpowiedz <= 0" style="color: red;">
     Czas musi być większy niż 0 sekund.
   </p>
 
@@ -15,7 +15,7 @@
     ❌ Maksymalna liczba błędów:
     <input type="number" [(ngModel)]="maksBledy" min="0" />
   </label>
-  <p *NgIf="maksBledy < 1" style="color: red;">
+  <p *ngIf="maksBledy < 1" style="color: red;">
     Liczba błędów nie może być mniejsza bądź równa 0.
   </p>
 

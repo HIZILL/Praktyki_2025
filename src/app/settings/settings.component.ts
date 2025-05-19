@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GameSettingsService } from '../game-settings.service';
 import { RouterModule, Router } from '@angular/router';
@@ -6,7 +7,7 @@ import { RouterModule, Router } from '@angular/router';
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [FormsModule, RouterModule],
+  imports: [FormsModule, RouterModule, CommonModule],
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
