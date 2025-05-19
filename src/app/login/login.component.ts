@@ -26,4 +26,8 @@ export class LoginComponent {
       this.error = 'Nieprawidłowa nazwa użytkownika lub hasło.';
     }
   }
+
+  przejdzDoMenu() {
+    this.router.navigate(['/']);
+  }
 }
