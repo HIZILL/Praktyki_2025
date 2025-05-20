@@ -10,33 +10,40 @@ import '@maptiler/sdk/dist/maptiler-sdk.css';
 export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   map: Map | undefined;
 
-  @ViewChild('map')
+  @ViewChild('map', { static: false })
   private mapContainer!: ElementRef<HTMLElement>;
 
   ngOnInit(): void {
-    config.apiKey = 'Id95jxtToAOuyq24h6di';
+    config.apiKey = 'KX7bujj98HnA2Kyjh033';
   }
 
   ngAfterViewInit() {
     const initialState = { lng: 16, lat: 19, zoom: 1 };
 
-    this.map = new Map({
-      container: this.mapContainer.nativeElement,
-      style: MapStyle.STREETS,
-      center: [initialState.lng, initialState.lat],
-      zoom: initialState.zoom
-    });
+    if (this.mapContainer?.nativeElement) {
+      this.map = new Map({
+        container: this.mapContainer.nativeElement,
+        style: MapStyle.STREETS,
+        center: [initialState.lng, initialState.lat],
+        zoom: initialState.zoom
+      });
 
-    this.map?.on('moveend', () => {
-    const center = this.map?.getCenter();
-    const zoom = this.map?.getZoom();
-    console.log('Nowe centrum:', center);
-    console.log('Nowy zoom:', zoom);
-  });
+      this.map.on('moveend', () => {
+        const center = this.map?.getCenter();
+        const zoom = this.map?.getZoom();
+        console.log('Nowe centrum:', center);
+        console.log('Nowy zoom:', zoom);
+      });
 
-    this.map.on('click', (event) => {
-      console.log('Klik:', event.lngLat);
-    });
+      this.map.on('click', (event) => {
+        console.log('Klik:', event.lngLat);
+      });
+      setTimeout(()=>{
+        this.map?.resize();
+      }, 300);
+    } else {
+      console.log("Mapa się jeszcze niWe wczytała");
+    }
   }
 
   ngOnDestroy() {
