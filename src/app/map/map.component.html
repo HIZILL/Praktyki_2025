@@ -1,7 +1,24 @@
-<div class="map-wrap">
-  <div class="map" #map></div>
-</div>
-<div class="container">
-    <button (click)="przejdzDoMenu()">🏠 Wróć do menu</button>
+<div *ngIf="graSkonczona" class="result">
+  <h2>😢 Koniec gry</h2>
+  <p>Przekroczyłeś limit {{ maksBledy }} błędów.</p>
+  <p>Twój wynik: {{ punkty }} punktów</p>
+  <button (click)="przejdzDoMenu()">🏠 Wróć do menu</button>
 </div>
 
+<div *ngIf="!graSkonczona" class="game-container">
+  <div class="map-container">
+    <div #map class="map"></div>
+  </div>
+
+  <div class="question-container">
+    <h1>Zgadnij kraj po kliknięciu na mapę</h1>
+
+    <div *ngIf="obecnyKraj" class="flag-container">
+      <p>Flaga:</p>
+      <img [src]="obecnyKraj.flags.png" alt="Flaga" />
+    </div>
+
+    <p class="score">Punkty: {{ punkty }} | Błędy: {{ bledy }}/{{ maksBledy }}</p>
+    <button (click)="przejdzDoMenu()">🏠 Wróć do menu</button>
+  </div>
+</div>
