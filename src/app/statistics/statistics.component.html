@@ -2,7 +2,7 @@
   <h2>📊 Statystyki gracza: {{ username }}</h2>
 
   <div *ngIf="scores.length; else brakWynikow">
-    <p>Najlepsze wyniki:</p>
+    <p>Wyniki rozrywek:</p>
     <ul>
       <li *ngFor="let score of scores">
         🎮 Tryb: {{ score.mode }} –
