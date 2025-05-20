@@ -132,7 +132,7 @@ export class GuessingByCapitalComponent implements OnDestroy {
       score: score,
       timestamp: new Date().toISOString(),
       lives: this.settings.maksBledy,
-      region: this.settings.region, //! dodanny
+      region: this.settings.region,
       timeLimit: this.settings.czasNaOdpowiedz
     });
 
