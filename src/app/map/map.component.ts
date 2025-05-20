@@ -1,13 +1,18 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { Map, MapStyle, config } from '@maptiler/sdk';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
+  imports: [RouterModule],
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  constructor( private router: Router ){}
+
   map: Map | undefined;
 
   @ViewChild('map', { static: false })
@@ -48,5 +53,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.map?.remove();
+  }
+
+  przejdzDoMenu() {
+    this.router.navigate(['/']);
   }
 }
