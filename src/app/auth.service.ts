@@ -6,7 +6,6 @@ export class AuthService {
   private username: string = '';
 
   login(username: string, password: string): boolean {
-    // Prosta weryfikacja testowa
     if (username && password) {
       this.loggedIn = true;
       this.username = username;
