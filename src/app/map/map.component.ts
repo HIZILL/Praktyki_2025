@@ -36,6 +36,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   czas: number = 10;
   timer: any = null;
 
+  czySprawdzono = false;
+  czyPoprawna = false;
+
   @ViewChild('map', { static: false }) private mapContainer!: ElementRef<HTMLElement>;
 
   constructor(
@@ -85,6 +88,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         });
 
         this.map?.on('click', (event) => {
+          if (this.czySprawdzono || this.graSkonczona) return;
+
           const features = this.map?.queryRenderedFeatures(event.point, {
             layers: ['countries-layer']
           });
@@ -111,27 +116,31 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
+    this.czySprawdzono = false;
+    this.czyPoprawna = false;
     this.obecnyKraj = this.kraje[Math.floor(Math.random() * this.kraje.length)];
     this.startTimer();
   }
 
   sprawdz(wybor: string) {
+    if (this.czySprawdzono || this.graSkonczona) return;
+
     this.stopTimer();
+
     const prawidlowa = this.obecnyKraj.name.common;
 
-    if (wybor === prawidlowa) {
-      alert(`✅ Dobrze! To był ${prawidlowa}`);
+    this.czySprawdzono = true;
+    this.czyPoprawna = (wybor === prawidlowa);
+
+    if (this.czyPoprawna) {
       this.punkty++;
     } else {
-      alert(`❌ Źle! To był: ${prawidlowa}`);
       this.bledy++;
     }
 
     if (this.bledy >= this.maksBledy) {
       this.graSkonczona = true;
       this.saveScore();
-    } else {
-      this.nowaRunda();
     }
   }
 
@@ -143,13 +152,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.czas--;
       if (this.czas <= 0) {
         this.stopTimer();
-        alert('⏱️ Czas minął!');
         this.bledy++;
+        this.czySprawdzono = true;
+        this.czyPoprawna = false;
+
         if (this.bledy >= this.maksBledy) {
           this.graSkonczona = true;
           this.saveScore();
-        } else {
-          this.nowaRunda();
         }
       }
     }, 1000);

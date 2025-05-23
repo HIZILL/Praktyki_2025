@@ -7,6 +7,7 @@
 </div>
 
 <div *ngIf="!graSkonczona" class="game-container">
+
   <div class="map-container">
     <div #map class="map"></div>
   </div>
@@ -22,6 +23,14 @@
     <p class="score">
       ⏱️ Czas: {{ czas }} s | ✅ Punkty: {{ punkty }} | ❌ Błędy: {{ bledy }}/{{ maksBledy }}
     </p>
+
+    <div *ngIf="czySprawdzono" class="answer-feedback" [style.color]="czyPoprawna ? 'green' : 'red'">
+      {{ czyPoprawna ? '✅ Dobrze!' : '❌ Źle!' }}
+      <br />
+      Prawidłowa odpowiedź: <strong>{{ obecnyKraj.name.common }}</strong>
+    </div>
+
+    <button *ngIf="czySprawdzono && !graSkonczona" (click)="nowaRunda()">➡️ Następna runda</button>
 
     <button (click)="przejdzDoMenu()">🏠 Wróć do menu</button>
   </div>
