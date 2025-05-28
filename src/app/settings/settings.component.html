@@ -1,44 +1,40 @@
-<div class="settings">
-  <h1>⚙️ Ustawienia</h1>
+<div class="container mt-5">
+  <h1 class="text-center mb-4">⚙️ Ustawienia</h1>
 
-  <label>
-    ⏱️ Czas na odpowiedź (sekundy):
-    <input type="number" [(ngModel)]="czasNaOdpowiedz" min="1" />
-  </label>
-  <p *ngIf="czasNaOdpowiedz <= 0" style="color: red;">
-    Czas musi być większy niż 0 sekund.
-  </p>
+  <div class="w-100 w-md-50 mx-auto">
+    <div class="mb-3">
+      <label class="form-label">⏱️ Czas na odpowiedź (sekundy):</label>
+      <input type="number" [(ngModel)]="czasNaOdpowiedz" min="1" class="form-control" />
+      <p *ngIf="czasNaOdpowiedz <= 0" class="text-danger mt-1">
+        Czas musi być większy niż 0 sekund.
+      </p>
+    </div>
 
-  <br />
+    <div class="mb-3">
+      <label class="form-label">❌ Maksymalna liczba błędów:</label>
+      <input type="number" [(ngModel)]="maksBledy" min="1" class="form-control" />
+      <p *ngIf="maksBledy < 1" class="text-danger mt-1">
+        Liczba błędów nie może być mniejsza bądź równa 0.
+      </p>
+    </div>
 
-  <label>
-    ❌ Maksymalna liczba błędów:
-    <input type="number" [(ngModel)]="maksBledy" min="0" />
-  </label>
-  <p *ngIf="maksBledy < 1" style="color: red;">
-    Liczba błędów nie może być mniejsza bądź równa 0.
-  </p>
+    <div class="mb-4">
+      <label class="form-label">🌍 Wybierz region:</label>
+      <select [(ngModel)]="region" class="form-select">
+        <option value="all">🌐 Wszystkie kraje</option>
+        <option value="Europe">🇪🇺 Europa</option>
+        <option value="Asia">🌏 Azja</option>
+        <option value="Africa">🌍 Afryka</option>
+        <option value="Oceania">🌊 Australia i Oceania</option>
+        <option value="North America">🌎 Ameryka Północna</option>
+        <option value="South America">🌎 Ameryka Południowa</option>
+      </select>
+    </div>
 
-  <br />
-
-  <label>
-    🌍 Wybierz region:
-    <select [(ngModel)]="region">
-      <option value="all">🌐 Wszystkie kraje</option>
-      <option value="Europe">🇪🇺 Europa</option>
-      <option value="Asia">🌏 Azja</option>
-      <option value="Africa">🌍 Afryka</option>
-      <option value="Oceania">🌊 Australia i Oceania</option>
-      <option value="North America">🌎 Ameryka Północna</option>
-      <option value="South America">🌎 Ameryka Południowa</option>
-    </select>
-  </label>
-
-  <br /><br />
-  <button
-    (click)="zapisz()"
-    [disabled]="czasNaOdpowiedz <= 0 || maksBledy < 1">
-    💾 Zapisz
-  </button>
-  <button (click)="przejdzDoMenu()">🏠 Wróć do menu</button>
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-success" (click)="zapisz()" [disabled]="czasNaOdpowiedz <= 0 || maksBledy < 1">💾 Zapisz</button>
+      <button class="btn btn-secondary" (click)="przejdzDoMenu()">🏠 Wróć do menu</button>
+    </div>
+  </div>
 </div>
+

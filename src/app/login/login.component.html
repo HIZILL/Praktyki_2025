@@ -1,8 +1,23 @@
-<h2>🔐 Logowanie</h2>
-<form (ngSubmit)="login()">
-  <label>Login: <input [(ngModel)]="username" name="username" required></label><br>
-  <label>Hasło: <input [(ngModel)]="password" name="password" type="password" required></label><br>
-  <button type="submit">Zaloguj</button>
-  <p *ngIf="error" style="color:red">{{ error }}</p>
-</form>
-<button (click)="przejdzDoMenu()">🏠 Wróć do menu</button>
+<div class="container mt-5">
+  <h2 class="text-center mb-4">🔐 Logowanie</h2>
+
+  <form class="w-100 w-md-50 mx-auto" (ngSubmit)="login()">
+    <div class="mb-3">
+      <label class="form-label">Login:</label>
+      <input [(ngModel)]="username" name="username" required class="form-control">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Hasło:</label>
+      <input [(ngModel)]="password" name="password" type="password" required class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Zaloguj</button>
+
+    <p *ngIf="error" class="text-danger mt-3 text-center">{{ error }}</p>
+  </form>
+
+  <div class="text-center mt-3">
+    <button class="btn btn-secondary" (click)="przejdzDoMenu()">🏠 Wróć do menu</button>
+  </div>
+</div>

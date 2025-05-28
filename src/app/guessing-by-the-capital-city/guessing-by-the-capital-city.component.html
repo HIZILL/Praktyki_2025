@@ -1,35 +1,39 @@
-<div *ngIf="graSkonczona">
-  <h2>😢 Koniec gry</h2>
-  <p>Przekroczyłeś limit {{ settings.maksBledy }} błędów.</p>
-  <p>Twój wynik: {{ punkty }} punktów</p>
-  <button (click)="resetujGre()">🔁 Zagraj ponownie</button>
-  <button (click)="przejdzDoMenu()">🏠 Wróć do menu</button>
-</div>
+<div class="container mt-5">
+  <div *ngIf="graSkonczona" class="text-center">
+    <h2>😢 Koniec gry</h2>
+    <p>Przekroczyłeś limit {{ settings.maksBledy }} błędów.</p>
+    <p>Twój wynik: <strong>{{ punkty }}</strong> punktów</p>
+    <button class="btn btn-success me-2" (click)="resetujGre()">🔁 Zagraj ponownie</button>
+    <button class="btn btn-secondary" (click)="przejdzDoMenu()">🏠 Wróć do menu</button>
+  </div>
 
-<div *ngIf="!graSkonczona">
-  <h1>Zgadnij stolicę</h1>
-  <div *ngIf="obecnyKraj && opcje.length" class="rem2">
-    <p>Czas: {{ czas }} s</p>
-    <p>Jaki kraj ma stolicę: <strong>{{ obecnyKraj.name.common }}</strong>?</p>
+  <div *ngIf="!graSkonczona" class="text-center">
+    <h1 class="mb-4">Zgadnij stolicę</h1>
 
-    <div class="rem1">
-      <button
-        *ngFor="let opcja of opcje"
-        (click)="sprawdz(opcja)"
-        [disabled]="czySprawdzono">
-        {{ opcja }}
-      </button>
+    <div *ngIf="obecnyKraj && opcje.length" class="mb-4">
+      <p><strong>Czas:</strong> {{ czas }} s</p>
+      <p>Jaki kraj ma stolicę: <strong>{{ obecnyKraj.name.common }}</strong>?</p>
+
+      <div class="d-grid gap-2 col-12 col-md-6 mx-auto my-3">
+        <button
+          *ngFor="let opcja of opcje"
+          class="btn btn-outline-primary"
+          (click)="sprawdz(opcja)"
+          [disabled]="czySprawdzono">
+          {{ opcja }}
+        </button>
+      </div>
+
+      <div *ngIf="czySprawdzono" class="mb-3">
+        <p [class]="czyPoprawna ? 'text-success' : 'text-danger'">
+          {{ czyPoprawna ? '✅ Dobrze!' : '❌ Źle!' }}<br>
+          Prawidłowa odpowiedź: <strong>{{ obecnyKraj.capital[0] }}</strong>
+        </p>
+        <button class="btn btn-primary" (click)="nowaRunda()">➡️ Następna runda</button>
+      </div>
+
+      <button class="btn btn-secondary mt-3" (click)="przejdzDoMenu()">🏠 Wróć do menu</button>
+      <p class="mt-3">Punkty: <strong>{{ punkty }}</strong> | Błędy: {{ bledy }}/{{ settings.maksBledy }}</p>
     </div>
-
-    <div *ngIf="czySprawdzono" class="rem1">
-      <p [style.color]="czyPoprawna ? 'green' : 'red'">
-        {{ czyPoprawna ? '✅ Dobrze!' : '❌ Źle!' }}<br />
-        Prawidłowa odpowiedź: <strong>{{ obecnyKraj.capital[0] }}</strong>
-      </p>
-      <button (click)="nowaRunda()">➡️ Następna runda</button>
-    </div>
-
-    <button (click)="przejdzDoMenu()">🏠 Wróć do menu</button>
-    <p class="rem2">Punkty: {{ punkty }} | Błędy: {{ bledy }}/{{ settings.maksBledy }}</p>
   </div>
 </div>
